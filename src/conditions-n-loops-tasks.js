@@ -21,8 +21,8 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
+function isPositive(number) {
+  return number >= 0;
 }
 
 /**
@@ -38,8 +38,16 @@ function isPositive(/* number */) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  const arrayOfNums = [a, b, c];
+  let max = 0;
+
+  for (let i = 0; i < arrayOfNums.length; i += 1) {
+    if (max < arrayOfNums[i]) {
+      max = arrayOfNums[i];
+    }
+  }
+  return max;
 }
 
 /**
@@ -82,8 +90,18 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  let isIsosceles = false;
+  if (a === 0 || b === 0 || c === 0) return isIsosceles;
+
+  if (a === b && a + b > c) {
+    isIsosceles = true;
+  } else if (b === c && c + b > b) {
+    isIsosceles = true;
+  } else if (a === c && a + c > b) {
+    isIsosceles = true;
+  }
+  return isIsosceles;
 }
 
 /**
@@ -153,8 +171,14 @@ function isPalindrome(/* str */) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  let index = -1;
+  for (let i = 0; i < str.length; i += 1) {
+    if (letter === str[i]) {
+      index = i;
+    }
+  }
+  return index;
 }
 
 /**
@@ -172,8 +196,26 @@ function getIndexOf(/* str, letter */) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  let doesContain = false;
+  let modifiedNum = num;
+  let doRun = true;
+
+  while (doRun) {
+    const lastRun = modifiedNum < 10;
+
+    if (modifiedNum % 10 === digit) {
+      doesContain = true;
+      doRun = false;
+    } else {
+      modifiedNum = (modifiedNum - (modifiedNum % 10)) / 10;
+    }
+
+    if (lastRun) {
+      doRun = false;
+    }
+  }
+  return doesContain;
 }
 
 /**
