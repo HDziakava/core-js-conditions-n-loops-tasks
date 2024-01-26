@@ -210,10 +210,10 @@ function convertNumberToString(numberStr) {
  */
 function isPalindrome(str) {
   let isStrPalindrome = true;
-  const lenght = str.length;
+  const { length } = str;
 
-  for (let i = 0; i < lenght; i += 1) {
-    if (str[i] !== str[lenght - 1 - i]) {
+  for (let i = 0; i < length; i += 1) {
+    if (str[i] !== str[length - 1 - i]) {
       isStrPalindrome = false;
     }
   }
@@ -294,8 +294,26 @@ function isContainNumber(num, digit) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  const { length } = arr;
+
+  for (let i = 1; i < length; i += 1) {
+    let leftSum = 0;
+    for (let j = i - 1; j >= 0; j -= 1) {
+      leftSum += arr[j];
+    }
+
+    let rightSum = 0;
+    for (let k = i + 1; k < length; k += 1) {
+      rightSum += arr[k];
+    }
+
+    if (leftSum === rightSum) {
+      return i;
+    }
+  }
+
+  return -1;
 }
 
 /**
@@ -398,8 +416,42 @@ function shuffleChar(/* str, iterations */) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
+function getNearestBigger(number) {
+  let num = number;
+  const numberArr = [];
+  let doRun = true;
+
+  while (doRun) {
+    const currentNum = num % 10;
+    if (currentNum < numberArr[0]) {
+      const rangeNums = numberArr.filter(
+        (numVal) => numVal > currentNum && numVal < numberArr[0]
+      );
+      const minNum = rangeNums.length ? Math.min(...rangeNums) : numberArr[0];
+      num = 10 ** numberArr.length * (num - currentNum + minNum);
+
+      const indexOfMin = numberArr.findIndex((el) => el === minNum);
+      numberArr.splice(indexOfMin, 1);
+      numberArr.push(currentNum);
+
+      const arrSorted = numberArr.sort((a, b) => a - b);
+
+      while (arrSorted.length) {
+        num += arrSorted.shift() * 10 ** arrSorted.length;
+      }
+
+      doRun = false;
+      break;
+    }
+
+    numberArr.unshift(currentNum);
+    num = (num - currentNum) / 10;
+    if (num === 0) {
+      doRun = false;
+    }
+  }
+
+  return num;
 }
 
 module.exports = {
