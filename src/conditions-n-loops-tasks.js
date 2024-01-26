@@ -68,8 +68,19 @@ function getMaxNumber(a, b, c) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  const qX = queen.x;
+  const qY = queen.y;
+  const kX = king.x;
+  const kY = king.y;
+
+  let willQueenWin = false;
+
+  if (qX === kX || qY === kY || Math.abs(qX - kX) === Math.abs(qY - kY)) {
+    willQueenWin = true;
+  }
+
+  return willQueenWin;
 }
 
 /**
@@ -118,8 +129,22 @@ function isIsoscelesTriangle(a, b, c) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  const romanNums = ['X', 'IX', 'V', 'IV', 'I'];
+  const nums = [10, 9, 5, 4, 1];
+  let answer = '';
+  let number = num;
+
+  for (let i = 0; i < nums.length; i += 1) {
+    let a = 0;
+    while (a < Math.floor(number / nums[i])) {
+      answer += romanNums[i];
+      a += 1;
+    }
+    number %= nums[i];
+  }
+
+  return answer;
 }
 
 /**
