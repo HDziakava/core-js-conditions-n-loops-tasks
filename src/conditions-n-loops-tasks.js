@@ -433,24 +433,21 @@ function rotateMatrix(matrix) {
  */
 function sortByAsc(arr) {
   const answer = arr;
+  const { length } = arr;
 
-  let i = 0;
-  let j = 0;
+  for (let i = 1; i < length; i += 1) {
+    const current = answer[i];
 
-  while (i < answer.length) {
-    j = i + 1;
-    while (j < answer.length) {
-      if (answer[j] < answer[i]) {
-        const el = answer[i];
-        answer[i] = answer[j];
-        answer[j] = el;
-      }
-      j += 1;
+    let j = i;
+
+    while (j > 0 && answer[j - 1] > current) {
+      answer[j] = answer[j - 1];
+      j -= 1;
     }
-    i += 1;
-  }
 
-  return arr;
+    answer[j] = current;
+  }
+  return answer;
 }
 
 /**
