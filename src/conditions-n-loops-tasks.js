@@ -337,8 +337,52 @@ function getBalanceIndex(arr) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const array = [];
+
+  for (let i = 0; i < size; i += 1) {
+    array[i] = [];
+  }
+
+  let startingRowIndex = 0;
+  let startingColumnIndex = 0;
+  let finishingRowIndex = size;
+  let finishingColumnIndex = size;
+  let value = 0;
+
+  while (
+    startingRowIndex < finishingRowIndex &&
+    startingColumnIndex < finishingColumnIndex
+  ) {
+    for (let i = startingColumnIndex; i < finishingColumnIndex; i += 1) {
+      value += 1;
+      array[startingRowIndex][i] = value;
+    }
+    startingRowIndex += 1;
+
+    for (let i = startingRowIndex; i < finishingRowIndex; i += 1) {
+      value += 1;
+      array[i][finishingColumnIndex - 1] = value;
+    }
+    finishingColumnIndex -= 1;
+
+    if (startingRowIndex < finishingRowIndex) {
+      for (let i = finishingColumnIndex - 1; i >= startingColumnIndex; i -= 1) {
+        value += 1;
+        array[finishingRowIndex - 1][i] = value;
+      }
+      finishingRowIndex -= 1;
+    }
+
+    if (startingColumnIndex < finishingColumnIndex) {
+      for (let i = finishingRowIndex - 1; i >= startingRowIndex; i -= 1) {
+        value += 1;
+        array[i][startingColumnIndex] = value;
+      }
+      startingColumnIndex += 1;
+    }
+  }
+  return array;
 }
 
 /**
@@ -392,6 +436,7 @@ function sortByAsc(arr) {
 
   let i = 0;
   let j = 0;
+
   while (i < answer.length) {
     j = i + 1;
     while (j < answer.length) {
@@ -405,7 +450,7 @@ function sortByAsc(arr) {
     i += 1;
   }
 
-  return answer;
+  return arr;
 }
 
 /**
